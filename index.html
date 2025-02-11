@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ralatro</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="card-container" id="cardContainer">
+        <div class="card-wrapper" id="cardWrapper"></div>
+    </div>
+
+
+
+    <div id="selectedCardThumbnail"></div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="card-picked">
+                <img id="modalImage" src="" alt="Expanded Card Image" style="width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+    <audio id="cardAudio" src=""></audio>
+
+    <script>
+        function showModal(card) {
+            const modal = document.getElementById('myModal');
+            const modalImage = document.getElementById('modalImage');
+            const cardImage = card.querySelector('img');
+            const cardId = card.getAttribute('data-id');
+
+            modalImage.src = cardImage.src;
+
+            modal.style.display = 'flex';
+
+            card.style.backgroundImage = `url(${modalImage.src})`;
+
+            card.querySelector('.card-number').innerText = '';
+
+            const cardState = {
+                backgroundImage: modalImage.src,
+                cardNumber: ''
+            };
+            localStorage.setItem(`cardState_${cardId}`, JSON.stringify(cardState));
+
+            const audio = document.getElementById('cardAudio');
+            if (modalImage.src.includes("RoletaD")) {
+                document.querySelector(".card-picked").classList.add("foil");
+                audio.src = './assets/audio/veryrare.mp3';
+                audio.play();
+            } else if (modalImage.src.includes("Locadora")) {
+                audio.src = './assets/audio/fliperama.mp3';
+                audio.play();
+            } else if (modalImage.src.includes("GIFT30")) {
+                audio.src = './assets/audio/30.mp3';
+                audio.play();
+            }else{
+                audio.src = './assets/audio/common.mp3';
+                audio.play();
+            }
+        }
+
+        function loadRevealedCardsState() {
+            const cards = document.querySelectorAll('.card-wrapper');
+
+            cards.forEach(card => {
+                const cardId = card.getAttribute('data-id'); 
+                const savedState = localStorage.getItem(`cardState_${cardId}`);
+                if (savedState) {
+                    const { backgroundImage, cardNumber } = JSON.parse(savedState);
+                    card.style.backgroundImage = `url(${backgroundImage})`;
+                    card.querySelector('.card-number').innerText = cardNumber;
+                }
+            });
+        }
+
+        window.onload = loadRevealedCardsState;
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+            const audio = document.getElementById('cardAudio');
+            audio.pause();
+            audio.currentTime = 0;
+        }
+        window.addEventListener('click', function (event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                if (document.querySelector(".card-picked.foil")) {
+                    document.querySelector(".card-picked").classList.remove("foil");
+                }
+                closeModal();
+            }
+        });
+        function loadRevealedCard() {
+            const revealedCard = localStorage.getItem('revealedCard');
+            if (revealedCard) {
+                const modal = document.getElementById('myModal');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = revealedCard;
+                modal.style.display = 'flex';
+            }
+        }
+        window.onload = loadRevealedCard;
+    </script>
+</body>
+
+</html>
