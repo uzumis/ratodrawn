@@ -132,15 +132,22 @@ function showModal(card) {
             audio.currentTime = 0;
         }
         window.addEventListener('click', function (event) {
-            const modal = document.getElementById('myModal');
-            if (event.target === modal) {
-                if (document.querySelector(".card-picked.foil")) {
-                    document.querySelector(".card-picked").classList.remove("foil");
-                    document.querySelector(".card-picked").classList.remove("mim__de--papai");
-                }
-                closeModal();
-            }
-        });
+    const modal = document.getElementById('myModal');
+    if (event.target === modal) {
+        const cardPicked = document.querySelector(".card-picked");
+        if (cardPicked && cardPicked.classList.contains("mim__de--papai")) {
+            cardPicked.style.transform = "scale(0)"; // Define scale 0 antes de remover a classe
+            setTimeout(() => {
+                cardPicked.classList.remove("mim__de--papai");
+            }, 100); // Pequeno delay para garantir que o CSS tenha tempo de processar
+        }
+        if (cardPicked && cardPicked.classList.contains("foil")) {
+            cardPicked.classList.remove("foil");
+        }
+        closeModal();
+    }
+});
+
         function loadRevealedCard() {
             const revealedCard = localStorage.getItem('revealedCard');
             if (revealedCard) {
