@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     logo.addEventListener("mouseover", function () {
         sound.currentTime = 0;
-        sound.play();m
+        sound.play();
     });
 });
 
