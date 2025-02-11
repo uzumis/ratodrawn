@@ -90,6 +90,8 @@ function showModal(card) {
                 newAudioSrc = './assets/audio/mendigo.mp3';
             } else if (modalImage.src.includes("Roleta")) {
                 newAudioSrc = './assets/audio/Roleta.mp3';
+            }else if(modalImage.src.includes("CACHACA")){
+                newAudioSrc = './assets/audio/mimdepapaiascended.mp3';
             }
 
             // Definir o novo áudio e tocar apenas uma vez
@@ -134,6 +136,7 @@ function showModal(card) {
             if (event.target === modal) {
                 if (document.querySelector(".card-picked.foil")) {
                     document.querySelector(".card-picked").classList.remove("foil");
+                    document.querySelector(".card-picked").classList.remove("mim__de--papai");
                 }
                 closeModal();
             }
@@ -145,6 +148,7 @@ function showModal(card) {
                 const modalImage = document.getElementById('modalImage');
                 modalImage.src = revealedCard;
                 modal.style.display = 'flex';
+                modal.style.transform = 'scale(1)';
             }
         }
         window.onload = loadRevealedCard;

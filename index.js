@@ -183,15 +183,35 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 2500);
         });
 
-    $(".card-picked img").on("load", function () {
-        if (this.src.includes('RoletaD') || 
-        this.src.includes('GIFT30') ||
-        this.src.includes('GIFT10') ||
-        this.src.includes('CACHACA') ||
-        this.src.includes('SUBGIFT')) {
-            $(this).closest(".card-picked").addClass("foil");
-        }
-    });
+        $(".card-picked img").on("load", function () {
+            let card = $(this).closest(".card-picked");
+        
+            if (this.src.includes('RoletaD') || 
+                this.src.includes('GIFT30') ||
+                this.src.includes('GIFT10') ||
+                this.src.includes('CACHACA') ||
+                this.src.includes('SUBGIFT')) {
+                card.addClass("foil");
+            }
+        
+            if (this.src.includes('CACHACA')) {
+                card.addClass("mim__de--papai");
+            }
+        });
+        
+        // Adicionando o efeito de scale via CSS
+        $("<style>")
+            .prop("type", "text/css")
+            .html(`
+                .mim__de--papai {
+                    transform: scale(1.5)!important;
+                    animation: 15s fadeIn!important;
+                        transition: 15s!important;
+}
+                }
+            `)
+            .appendTo("head");
+        
     const logo = document.getElementById("logo");
     console.log(logo);
     const sound = document.getElementById("sound");
