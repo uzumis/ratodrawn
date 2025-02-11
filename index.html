@@ -24,98 +24,102 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="card-picked">
-                <img class="modal__image" id="modalImage" src="" alt="Expanded Card Image" style="width: 100%; height: auto;">
+                <img class="modal__image" id="modalImage" src="" alt="Expanded Card Image"
+                    style="width: 100%; height: auto;">
             </div>
         </div>
     </div>
     <audio id="cardAudio" src=""></audio>
     <script>
-function showModal(card) {
-    const confirmPick = confirm("Você tem certeza que deseja escolher esta carta? Carta No"+ card.getAttribute('data-id'));
-    if (!confirmPick) return; 
-    const modal = document.getElementById('myModal');
-    const modalImage = document.getElementById('modalImage');
-    const cardImage = card.querySelector('img');
-    const cardId = card.getAttribute('data-id');
-    const audio = document.getElementById('cardAudio');
+        function showModal(card) {
+            const confirmPick = confirm("Você tem certeza que deseja escolher esta carta? Carta No" + card.getAttribute('data-id'));
+            if (!confirmPick) return;
+            const modal = document.getElementById('myModal');
+            const modalImage = document.getElementById('modalImage');
+            const cardImage = card.querySelector('img');
+            const cardId = card.getAttribute('data-id');
+            const audio = document.getElementById('cardAudio');
+            const cardPicked = document.querySelector(".card-picked");
 
-    // Adiciona efeito de brilho e tremor
-    card.classList.add('card-shake', 'card-whitened');
-    
-    // Garante que o áudio de suspense comece do início e toque apenas uma vez
-    audio.src = './assets/audio/foil.mp3';
-    audio.currentTime = 0;
-    audio.play();
+            // Adiciona efeito de brilho e tremor
+            card.classList.add('card-shake', 'card-whitened');
 
-    // Quando o áudio de suspense terminar, exibir a carta e tocar o áudio correspondente
-    audio.onended = function () {
-        // Ativa a transição para branco
-        card.classList.add('reveal');
-
-        setTimeout(() => {
-            // Revelar a carta após o efeito de brilho
-            modalImage.src = cardImage.src;
-            modal.style.display = 'flex';
-
-            // Ajuste do fundo da carta
-            card.style.backgroundImage = `url(${modalImage.src})`;
-
-            // Limpar o número da carta
-            card.querySelector('.card-number').innerText = '';
-
-            // Armazenamento do estado da carta
-            const cardState = {
-                backgroundImage: modalImage.src,
-                cardNumber: ''
-            };
-            localStorage.setItem(`cardState_${cardId}`, JSON.stringify(cardState));
-
-            // Escolher o áudio correto para tocar
-            let newAudioSrc = './assets/audio/common.mp3'; // Padrão
-
-            if (modalImage.src.includes("RoletaD")) {
-                document.querySelector(".card-picked").classList.add("foil");
-                newAudioSrc = './assets/audio/veryrare.mp3';
-            } else if (modalImage.src.includes("Locadora")) {
-                newAudioSrc = './assets/audio/fliperama.mp3';
-            } else if (modalImage.src.includes("GIFT30")) {
-                newAudioSrc = './assets/audio/30.mp3';
-            } else if (modalImage.src.includes("GIFT10")) {
-                newAudioSrc = './assets/audio/Giftcard10.mp3';
-            } else if (modalImage.src.includes("SUBGIFT")) {
-                newAudioSrc = './assets/audio/subgift.mp3';
-            } else if (modalImage.src.includes("Game")) {
-                newAudioSrc = './assets/audio/jogonalista.mp3';
-            } else if (modalImage.src.includes("Ratox")) {
-                newAudioSrc = './assets/audio/Ratox.mp3';
-            } else if (modalImage.src.includes("Nada")) {
-                newAudioSrc = './assets/audio/mendigo.mp3';
-            } else if (modalImage.src.includes("Roleta")) {
-                newAudioSrc = './assets/audio/Roleta.mp3';
-            }else if(modalImage.src.includes("CACHACA")){
-                newAudioSrc = './assets/audio/mimdepapaiascended.mp3';
-            }
-
-            // Definir o novo áudio e tocar apenas uma vez
-            audio.src = newAudioSrc;
+            // Garante que o áudio de suspense comece do início e toque apenas uma vez
+            audio.src = './assets/audio/foil.mp3';
             audio.currentTime = 0;
             audio.play();
-            audio.onended = null; // Evita loops de áudio
 
-            // Remover os efeitos após a carta ser revelada
-            setTimeout(() => {
-                card.classList.remove('card-shake', 'card-whitened', 'reveal');
-            }, 200); // Tempo para remover efeitos visuais
-        }, 500); // Tempo para a transição do brilho antes de revelar
-    };
-}
+            // Quando o áudio de suspense terminar, exibir a carta e tocar o áudio correspondente
+            audio.onended = function () {
+                // Ativa a transição para branco
+                card.classList.add('reveal');
+                
+                setTimeout(() => {
+                    // Revelar a carta após o efeito de brilho
+                    modalImage.src = cardImage.src;
+                    modal.style.display = 'flex';
+
+                    // Ajuste do fundo da carta
+                    card.style.backgroundImage = `url(${modalImage.src})`;
+
+                    // Limpar o número da carta
+                    card.querySelector('.card-number').innerText = '';
+
+                    // Armazenamento do estado da carta
+                    const cardState = {
+                        backgroundImage: modalImage.src,
+                        cardNumber: ''
+                    };
+                    localStorage.setItem(`cardState_${cardId}`, JSON.stringify(cardState));
+
+                    // Escolher o áudio correto para tocar
+                    let newAudioSrc = './assets/audio/common.mp3'; // Padrão
+
+                    if (modalImage.src.includes("RoletaD")) {
+                        document.querySelector(".card-picked").classList.add("foil");
+                        newAudioSrc = './assets/audio/veryrare.mp3';
+                    } else if (modalImage.src.includes("Locadora")) {
+                        newAudioSrc = './assets/audio/fliperama.mp3';
+                    } else if (modalImage.src.includes("GIFT30")) {
+                        newAudioSrc = './assets/audio/30.mp3';
+                    } else if (modalImage.src.includes("GIFT10")) {
+                        newAudioSrc = './assets/audio/Giftcard10.mp3';
+                    } else if (modalImage.src.includes("SUBGIFT")) {
+                        newAudioSrc = './assets/audio/subgift.mp3';
+                    } else if (modalImage.src.includes("Game")) {
+                        newAudioSrc = './assets/audio/jogonalista.mp3';
+                    } else if (modalImage.src.includes("Ratox")) {
+                        newAudioSrc = './assets/audio/Ratox.mp3';
+                    } else if (modalImage.src.includes("Nada")) {
+                        newAudioSrc = './assets/audio/mendigo.mp3';
+                    } else if (modalImage.src.includes("Roleta")) {
+                        newAudioSrc = './assets/audio/Roleta.mp3';
+                    } else if (modalImage.src.includes("CACHACA")) {
+                        newAudioSrc = './assets/audio/mimdepapaiascended.mp3';
+                    }
+                    
+                   
+    
+                    // Definir o novo áudio e tocar apenas uma vez
+                    audio.src = newAudioSrc;
+                    audio.currentTime = 0;
+                    audio.play();
+                    audio.onended = null; // Evita loops de áudio
+
+                    // Remover os efeitos após a carta ser revelada
+                    setTimeout(() => {
+                        card.classList.remove('card-shake', 'card-whitened', 'reveal');
+                    }, 200); // Tempo para remover efeitos visuais
+                }, 500); // Tempo para a transição do brilho antes de revelar
+            };
+        }
 
 
         function loadRevealedCardsState() {
             const cards = document.querySelectorAll('.card-wrapper');
 
             cards.forEach(card => {
-                const cardId = card.getAttribute('data-id'); 
+                const cardId = card.getAttribute('data-id');
                 const savedState = localStorage.getItem(`cardState_${cardId}`);
                 if (savedState) {
                     const { backgroundImage, cardNumber } = JSON.parse(savedState);
@@ -134,21 +138,24 @@ function showModal(card) {
             audio.currentTime = 0;
         }
         window.addEventListener('click', function (event) {
-    const modal = document.getElementById('myModal');
-    if (event.target === modal) {
-        const cardPicked = document.querySelector(".card-picked");
-        if (cardPicked && cardPicked.classList.contains("mim__de--papai")) {
-            cardPicked.style.transform = "scale(0)"; // Define scale 0 antes de remover a classe
-            setTimeout(() => {
-                cardPicked.classList.remove("mim__de--papai");
-            }, 100); // Pequeno delay para garantir que o CSS tenha tempo de processar
-        }
-        if (cardPicked && cardPicked.classList.contains("foil")) {
-            cardPicked.classList.remove("foil");
-        }
-        closeModal();
-    }
-});
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                const cardPicked = document.querySelector(".card-picked");
+                if (cardPicked && cardPicked.classList.contains("mim__de--papai")) {
+                    cardPicked.style.transform = "scale(0)";
+                    setTimeout(() => {
+                        cardPicked.classList.remove("mim__de--papai");
+                     
+                    }, 40);
+                }
+                if (cardPicked && cardPicked.classList.contains("foil")) {
+                    cardPicked.classList.remove("foil");
+                }
+                cardPicked.classList.remove("common");
+                closeModal();
+                cardPicked.style.transform = "scale(1)";
+            }
+        });
 
         function loadRevealedCard() {
             const revealedCard = localStorage.getItem('revealedCard');
