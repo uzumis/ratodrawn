@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $(".card-picked img").on("load", function () {
             let card = $(this).closest(".card-picked");
-        
+            
             if (this.src.includes('RoletaD') || 
                 this.src.includes('GIFT30') ||
                 this.src.includes('GIFT10') ||
@@ -196,6 +196,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
             if (this.src.includes('CACHACA')) {
                 card.addClass("mim__de--papai");
+            }else{
+                card.addClass("common");
             }
         });
         
@@ -204,11 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .prop("type", "text/css")
             .html(`
                 .mim__de--papai {
+                    opacity:1!important;
                     transform: scale(1.5)!important;
                     animation: 15s fadeIn!important;
-                        transition: 15s!important;
+                    transition: 15s!important;
 }
                 }
+
+            
             `)
             .appendTo("head");
         

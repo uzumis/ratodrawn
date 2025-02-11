@@ -83,7 +83,6 @@ html {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    animation: 1s fadeIn;
 }
 
 .mim__de--papai{
@@ -106,7 +105,11 @@ html {
     text-decoration: none;
     cursor: pointer;
 }
-
+.common{
+    opacity:1!important;
+    animation: 1s fadeIn!important;
+                    transition: 1s!important;
+    }
 /* Modal content ajustado */
 .modal-content {
     background-color: transparent;
@@ -176,6 +179,7 @@ html {
     transition: none;
 }
 .card-picked{
+    opacity: 0;
     width: 328px;
     border-radius: 14px;
     /* margin-bottom: 47px; */
@@ -183,12 +187,11 @@ html {
     height: 451px;
 }
 .modal__image{
-
         object-fit: none;
-        width: 328px!important;
-        height: auto;
-        border-radius: 13px;
-        transition: all 0.3s ease;
+            width: 328px !important;
+            height: auto;
+            border-radius: 13px;
+            transition: all 0.3s ease;
 }
 .card-picked:hover {
     transition: all 0.3s ease;
