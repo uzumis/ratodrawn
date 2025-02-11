@@ -31,6 +31,8 @@
     <audio id="cardAudio" src=""></audio>
     <script>
 function showModal(card) {
+    const confirmPick = confirm("Você tem certeza que deseja escolher esta carta? Carta No"+ card.getAttribute('data-id'));
+    if (!confirmPick) return; 
     const modal = document.getElementById('myModal');
     const modalImage = document.getElementById('modalImage');
     const cardImage = card.querySelector('img');
