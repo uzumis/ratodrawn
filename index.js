@@ -187,6 +187,14 @@ document.addEventListener('DOMContentLoaded', function () {
             $(this).closest(".card-picked").addClass("foil");
         }
     });
+    const logo = document.getElementById("logo");
+    console.log(logo);
+    const sound = document.getElementById("sound");
+
+    logo.addEventListener("mouseover", function () {
+        sound.currentTime = 0;
+        sound.play();m
+    });
 });
 
 
