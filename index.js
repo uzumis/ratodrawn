@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addCardToDeck('./assets/Cards/Nada.png', 10);
         addCardToDeck('./assets/Cards/Locadora.png', 5);
         addCardToDeck('./assets/Cards/Game.png', 5);
-        addCardToDeck('./assets/Cards/Cachaça.png', 3);
+        addCardToDeck('./assets/Cards/CACHACA.png', 3);
         addCardToDeck('./assets/Cards/RoletaD.png', 1); // Se RoletaD for uma carta rara
 
         return cards;
@@ -43,15 +43,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const cardContainer = document.getElementById('cardWrapper');
         const cardDrawer = document.createElement('div');
         cardDrawer.className = 'card-drawer';
-
+        
         // Adiciona o data-id único para cada carta
         cardDrawer.setAttribute('data-id', number); // Atribuindo um id único para cada carta
-        cardDrawer.setAttribute('onclick', 'showModal(this)'); // Ao clicar na carta, a função showModal será chamada
+        cardDrawer.setAttribute('onclick', 'showModal(this)'); // Ao clicar na carta, a função showModal (definida globalmente abaixo) será chamada
 
         const cardNumber = document.createElement('div');
         cardNumber.className = 'card-number';
         cardNumber.textContent = number;
-
+        console.log(cardNumber);
         const cardContent = document.createElement('div');
         cardContent.className = 'card-content';
 
@@ -179,7 +179,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     $(".card-picked img").on("load", function () {
-        if (this.src.includes('RoletaD') || this.src.includes('SUBGIFT') || this.src.includes('Cachaça')) {
+        if (this.src.includes('RoletaD') || 
+        this.src.includes('GIFT30') ||
+        this.src.includes('GIFT10') ||
+        this.src.includes('CACHACA') ||
+        this.src.includes('SUBGIFT')) {
             $(this).closest(".card-picked").addClass("foil");
         }
     });
