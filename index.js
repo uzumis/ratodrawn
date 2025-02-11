@@ -99,15 +99,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const reshuffleBtn = document.getElementById('reshuffleBtn');
     if (reshuffleBtn) {
         reshuffleBtn.addEventListener('click', function () {
+            const confirmShuffle = confirm("Tem certeza de que deseja embaralhar o baralho?");
+            if (!confirmShuffle) return; // Cancela se o usuário clicar em "Cancelar"
+    
             deck = generateDeck();
             localStorage.setItem("deck", JSON.stringify(deck));
             for (let i = 0; i <= 40; i++) {
                 localStorage.removeItem("cardState_" + i);
             }
             updateDeckDisplay(deck);
+    
+            alert("O baralho foi embaralhado com sucesso!");
         });
     }
-
+    
     function loadRevealedCardsState() {
         const cards = document.querySelectorAll('.card-drawer');
 

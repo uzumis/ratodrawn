@@ -320,8 +320,9 @@ html {
 
         position: absolute;
         z-index: 99999;
-        top: 27%;
-        left: 51%;
+        top: 384px;
+        left: 1295px;
+    
         transition: all 0.3s ease;
         animation: tilt-shaking 2s infinite;
         
@@ -409,4 +410,18 @@ html {
 
 .card-whitened.reveal::before {
     opacity: 1;
+}
+
+.reshuffle__button{
+    
+        position: absolute;
+        background: red;
+        border-radius: 8px;
+        padding: 24px;
+        top: 984px;
+        left: 1724px;
+        font-family: fantasy;
+        color: white;
+        font-size: 23px;
+    
 }
